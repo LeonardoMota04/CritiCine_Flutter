@@ -21,10 +21,10 @@ O projeto segue uma estrutura organizada para melhor separação de lógica e re
 - **Views** → contém as telas do aplicativo finais apresentadas ao usuário.
 - **Widgets** → componentes reutilizáveis da interface usadas nas Views.
 
-## 🔧 Configuração e Execução
+## 🔧 Executar
 1. Clone este repositório:
    ```sh
-   git clone https://github.com/seu-usuario/movie_api_flutter_project.git
+   git clone https://github.com/LeonardoMota04/Movie_API_Flutter_Project
    ```
 2. Acesse o diretório do projeto:
    ```sh
