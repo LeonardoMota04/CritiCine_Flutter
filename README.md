@@ -2,6 +2,8 @@
 
 Este é um projeto simples em Flutter que demonstra um pequeno fluxo dentro de um aplicativo, utilizando chamadas de API para exibir informações sobre filmes e adição à lista de 'Para assistir'.
 
+![Image](https://github.com/user-attachments/assets/a9fa8fbd-a724-4289-b2b8-06cd7834f85a)
+
 ## Tecnologias
 - Flutter
 - Dart
