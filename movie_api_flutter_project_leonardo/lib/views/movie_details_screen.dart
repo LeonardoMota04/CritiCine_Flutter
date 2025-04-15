@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
 import 'package:movie_api_flutter_project_leonardo/core/enums/request_state.dart';
 import 'package:movie_api_flutter_project_leonardo/viewmodels/movie_viewmodel.dart';
+import 'package:movie_api_flutter_project_leonardo/models/movie.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -28,7 +29,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Consumer<MovieViewModel>(
       builder: (context, viewModel, child) {
-
         return Scaffold(
           body: _buildBody(viewModel),
         );
@@ -73,7 +73,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
     return CustomScrollView(
       slivers: [
-        _buildSliverAppBar(movie),
+        _buildSliverAppBar(movie, viewModel),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -91,10 +91,41 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  Widget _buildSliverAppBar(dynamic movie) {
+  Widget _buildSliverAppBar(dynamic movie, MovieViewModel viewModel) {
     return SliverAppBar(
       expandedHeight: 300,
       pinned: true,
+      backgroundColor: Colors.transparent,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () => Navigator.pop(context),
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.bookmark_add, color: Colors.white),
+          onPressed: () {
+            // objeto Movie a partir dos detalhes
+            final movieToAdd = Movie(
+              id: movie.id,
+              title: movie.title,
+              overview: movie.overview,
+              posterPath: movie.posterPath,
+              voteAverage: movie.voteAverage,
+            );
+            
+            String message = viewModel.addToWatchlist(movieToAdd);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           fit: StackFit.expand,
