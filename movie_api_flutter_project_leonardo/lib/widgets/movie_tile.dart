@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
 import 'package:movie_api_flutter_project_leonardo/routes/app_routes.dart';
 import 'package:movie_api_flutter_project_leonardo/viewmodels/movie_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class MovieTile extends StatelessWidget {
 
     return ListTile(
       leading: Image.network(
-        "https://image.tmdb.org/t/p/w200${movie.posterPath}",
+        "${APIConstants.posterSizeW200}${movie.posterPath}",
         fit: BoxFit.cover,
       ),
       title: Text(movie.title),
