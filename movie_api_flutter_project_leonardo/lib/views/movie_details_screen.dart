@@ -28,25 +28,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Consumer<MovieViewModel>(
       builder: (context, viewModel, child) {
-        final state = viewModel.detailsState;
-        final movie = viewModel.movieDetails;
 
         return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              style: TextStyle(fontSize: 16),
-              state == RequestState.success && movie != null
-                  ? 'Detalhes de "${movie.title}"'
-                  : 'Detalhes do Filme',
-            ),
-          ),
           body: _buildBody(viewModel),
         );
       },
     );
   }
 
-  // BODY
   Widget _buildBody(MovieViewModel viewModel) {
     final state = viewModel.detailsState;
 
@@ -55,7 +44,24 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     }
 
     if (state == RequestState.error) {
-      return Center(child: Text(viewModel.errorMessage));
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 48,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              viewModel.errorMessage,
+              style: const TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
     }
 
     final movie = viewModel.movieDetails;
@@ -65,34 +71,132 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       );
     }
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Image.network(
-              '${APIConstants.posterSizeW500}${movie.posterPath}',
-              height: 300,
-              fit: BoxFit.cover,
-              errorBuilder:
-                  (context, error, stackTrace) =>
-                      const Icon(Icons.broken_image, size: 100),
+    return CustomScrollView(
+      slivers: [
+        _buildSliverAppBar(movie),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildMovieInfo(movie),
+                const SizedBox(height: 24),
+                _buildOverview(movie),
+              ],
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            movie.title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          Text('Nota: ${movie.voteAverage.toStringAsFixed(1)} ⭐'),
-          const SizedBox(height: 8),
-          Text('Lançamento: ${movie.releaseDate}'),
-          const SizedBox(height: 16),
-          Text(movie.overview),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSliverAppBar(dynamic movie) {
+    return SliverAppBar(
+      expandedHeight: 300,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              '${APIConstants.posterSizeW500}${movie.posterPath}',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image, size: 100),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.7),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildMovieInfo(dynamic movie) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          movie.title,
+          style: const TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    movie.voteAverage.toStringAsFixed(1),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.calendar_today, size: 16),
+                  const SizedBox(width: 4),
+                  Text(movie.releaseDate),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOverview(dynamic movie) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Sinopse",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          movie.overview,
+          style: const TextStyle(
+            fontSize: 16,
+            height: 1.5,
+          ),
+        ),
+      ],
     );
   }
 }
