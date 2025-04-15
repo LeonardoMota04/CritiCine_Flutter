@@ -7,13 +7,13 @@ import 'package:provider/provider.dart';
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
 
-  const MovieDetailsScreen({Key? key, required this.movieId}) : super(key: key);
+  const MovieDetailsScreen({super.key, required this.movieId});
 
   @override
-  _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
+  MovieDetailsScreenState createState() => MovieDetailsScreenState();
 }
-
-class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+ 
+class MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   void initState() {

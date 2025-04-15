@@ -13,7 +13,7 @@ class MovieViewModel extends ChangeNotifier {
   // MODELOS
   List<Movie> movies = []; // filme
   MovieDetails? movieDetails; // detalhes do filme
-  List<Movie> _watchlist = []; // filmes 'para assistir'
+  final List<Movie> _watchlist = []; // filmes 'para assistir'
   List<Movie> get watchlist => _watchlist; // getter
 
   // ESTADO DE CARREGAMENTO

@@ -10,10 +10,10 @@ class MovieList extends StatelessWidget {
 
   // init
   const MovieList({
-    Key? key,
+    super.key,
     required this.movies,
     required this.showAddButton, 
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

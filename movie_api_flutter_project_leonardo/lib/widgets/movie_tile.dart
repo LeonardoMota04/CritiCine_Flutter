@@ -11,7 +11,7 @@ class MovieTile extends StatelessWidget {
   final bool showAddButton; // mostrar botão de 'favorito'
 
   // init
-  const MovieTile({Key? key, required this.movie, this.showAddButton = false}) : super(key: key);
+  const MovieTile({super.key, required this.movie, this.showAddButton = false});
 
   @override
   Widget build(BuildContext context) {
