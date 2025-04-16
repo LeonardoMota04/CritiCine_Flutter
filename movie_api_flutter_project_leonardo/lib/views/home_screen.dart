@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/movie_viewmodel.dart';
+import '../viewmodels/theme_viewmodel.dart';
 import '../core/enums/request_state.dart';
 import '../widgets/movie_list.dart';
 
@@ -34,8 +35,99 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
+      drawer: _buildDrawer(),
       body: _buildUI(),
       bottomNavigationBar: _bottomTabs(),
+    );
+  }
+
+  Widget _buildDrawer() {
+    final themeViewModel = Provider.of<ThemeViewModel>(context);
+    
+    return Drawer(
+      child: Column(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: const Text(
+              "Leonardo Mota",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            accountEmail: const Text("leonardo@exemplo.com"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Theme.of(context).primaryColor,
+              child: const Text(
+                "LM",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor.withOpacity(0.5),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text("Início"),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.favorite),
+            title: const Text("Favoritos"),
+            onTap: () {
+              Navigator.pop(context);
+              // Ação mockup
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.history),
+            title: const Text("Histórico"),
+            onTap: () {
+              Navigator.pop(context);
+              // Ação mockup
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Configurações"),
+            onTap: () {
+              Navigator.pop(context);
+              // Ação mockup
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text("Sobre"),
+            onTap: () {
+              Navigator.pop(context);
+              // Ação mockup
+            },
+          ),
+          const Spacer(),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              themeViewModel.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+            ),
+            title: Text(
+              themeViewModel.isDarkMode ? "Modo claro" : "Modo escuro",
+            ),
+            onTap: () {
+              themeViewModel.toggleTheme();
+              Navigator.pop(context);
+            },
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
     );
   }
 
