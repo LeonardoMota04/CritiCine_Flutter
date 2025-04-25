@@ -1,5 +1,5 @@
 # Movie API Flutter Project
-Desenvolvido por Leonardo Pereira Mota
+
 Este é um projeto em Flutter que demonstra um pequeno fluxo de aplicativo voltado para filmes. Ele utiliza integração com a API pública do TMDb para buscar dados reais e oferece funcionalidades como navegação entre telas, gerenciamento de estado, reatividade, tratamento de erros e persistência de dados na sessão. O usuário pode visualizar filmes populares e adicioná-los à sua lista de "Para assistir".
 
 ![Image](https://github.com/user-attachments/assets/544d5d79-2108-4daf-b0ec-385702e46d53)
