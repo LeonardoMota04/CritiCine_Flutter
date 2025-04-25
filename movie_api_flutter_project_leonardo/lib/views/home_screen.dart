@@ -21,8 +21,11 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    //Provider.of<MovieViewModel>(context, listen: false).loadMovies();
-    // comentado para mostrar estado de carregamento forçado
+    
+    // ADIAR CHAMADA PARA DEPOIS DO PRIMEIRO FRAME (evita thread overloading)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<MovieViewModel>(context, listen: false).loadMovies();
+    });
   }
 
   @override

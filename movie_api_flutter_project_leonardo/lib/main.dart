@@ -12,8 +12,8 @@ Future<void> main() async {
   await dotenv.load();
 
   // INICIALIZANDO E INJETANDO DEPENDÊNCIAS
-  final apiService = ApiService(); // SERVICE DE API
-  final movieRepository = MovieRepository(apiService); // REPOSITORY COM A API
+  final tmbdClient = TmdbApiClient(); // SERVICE DE API
+  final movieRepository = MovieRepository(tmbdClient); // REPOSITORY COM A API
 
   runApp(
     MultiProvider(
