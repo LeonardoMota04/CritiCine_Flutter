@@ -1,25 +1,30 @@
-# Movie API Flutter Project - Leonardo Pereira Mota
+# Movie API Flutter Project
+Desenvolvido por Leonardo Pereira Mota
+Este é um projeto em Flutter que demonstra um pequeno fluxo de aplicativo voltado para filmes. Ele utiliza integração com a API pública do TMDb para buscar dados reais e oferece funcionalidades como navegação entre telas, gerenciamento de estado, reatividade, tratamento de erros e persistência de dados na sessão. O usuário pode visualizar filmes populares e adicioná-los à sua lista de "Para assistir".
 
-Este é um projeto simples em Flutter que demonstra um pequeno fluxo dentro de um aplicativo, utilizando chamadas de API para exibir informações sobre filmes e adição à lista de 'Para assistir'.
-
-![Image](https://github.com/user-attachments/assets/a9fa8fbd-a724-4289-b2b8-06cd7834f85a)
+![Image](https://github.com/user-attachments/assets/544d5d79-2108-4daf-b0ec-385702e46d53)
 
 ## Tecnologias
-- Flutter
-- Dart
+- Flutter + Dart
 - TMDb API
-- HTTP para requisições de API
-- Provider para reatividade do fluxo do App
+- Provider - gerenciamento de estado reativo
+- HTTP - consumo de API REST
 
 ## 📂 Arquitetura
-O projeto segue uma estrutura organizada para melhor separação de lógica e responsabilidades:
-- **Core** → contém arquivos essenciais de monitoramento de estado de carregamento e chamada de API.
-- **Models** → representam os dados do aplicativo.
-- **Repository** → gerencia as chamadas de API e fornece os dados para a ViewModel.
+O projeto segue uma arquitetura modular e escalável, baseada no padrão MVVM (Model-View-ViewModel), com foco na separação de responsabilidades, testabilidade e manutenção facilitada:
+- **Core** → contém arquivos essenciais de monitoramento de estado de carregamento, estado de erros de requisição e chamada de API.
+- **Models** → representam os dados da API em objetos, integráveis com JSON e mantêm o APP desacoplado da API.
+- **Repository** → responsável por intermediar o consumo da API com a ViewModel. Aqui é centralizada toda a lógica de dados externos, como busca de filmes populares ou detalhes de um filme por ID.
 - **Routes** → gerencia a navegação dentro do app.
-- **ViewModel** → gerencia a lógica de estado das telas e controle dos modelos do App.
-- **Views** → contém as telas do aplicativo finais apresentadas ao usuário.
+- **ViewModel** → gerencia a lógica de estado das telas. Utiliza o ChangeNotifier para emitir mudanças reativas que atualizam as views automaticamente.
+- **Views** → contém as telas do aplicativo finais apresentadas ao usuário. Responsáveis por consumir a lógica da ViewModel e renderizar o layout.
 - **Widgets** → componentes reutilizáveis da interface usadas nas Views.
+
+## Reatividade e Estado
+O app utiliza Provider para gerenciamento de estado, com ChangeNotifier. Isso permite:
+- Atualização automática das views ao adicionar um filme à lista.
+- Controle dinâmico do estado de carregamento, com exibição de loaders.
+- Reatividade entre diferentes partes do app (como Views e Widgets reutilizáveis).
 
 ## 🔧 Executar
 1. Clone este repositório:
