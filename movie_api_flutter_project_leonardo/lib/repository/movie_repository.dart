@@ -1,6 +1,5 @@
 import 'package:movie_api_flutter_project_leonardo/core/network/api_client.dart';
 import 'package:movie_api_flutter_project_leonardo/models/movie_details.dart';
-import '../core/network/api_service.dart';
 import '../models/movie.dart';
 
 // REPOSITORY DE FILME PARA ENTREGA À VIEW MODEL 
