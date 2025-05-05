@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_api_flutter_project_leonardo/widgets/comments_section.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
 import 'package:movie_api_flutter_project_leonardo/core/enums/request_state.dart';
@@ -83,6 +84,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 _buildMovieInfo(movie),
                 const SizedBox(height: 24),
                 _buildOverview(movie),
+                const SizedBox(height: 24),
+                CommentsSection(movieId: movie.id, movieTitle: movie.title),
               ],
             ),
           ),

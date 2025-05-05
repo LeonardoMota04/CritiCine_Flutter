@@ -4,6 +4,7 @@ import '../viewmodels/movie_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
 import '../core/enums/request_state.dart';
 import '../widgets/movie_list.dart';
+import '../providers/auth_provider.dart';
 
 // HOME SCREEN
 class HomeScreen extends StatefulWidget {
@@ -46,29 +47,36 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
 
   Widget _buildDrawer() {
     final themeViewModel = Provider.of<ThemeViewModel>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+    final user = authProvider.user;
     
     return Drawer(
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text(
-              "Leonardo Mota",
-              style: TextStyle(
+            accountName: Text(
+              user?.displayName ?? "Usuário",
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: const Text("leonardo@exemplo.com"),
+            accountEmail: Text(user?.email ?? ""),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: const Text(
-                "LM",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              backgroundImage: user?.photoURL != null 
+                ? NetworkImage(user!.photoURL!) 
+                : null,
+              child: user?.photoURL == null 
+                ? Text(
+                    user?.displayName?.substring(0, 1).toUpperCase() ?? "U",
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                : null,
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -126,6 +134,14 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
             onTap: () {
               themeViewModel.toggleTheme();
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text("Sair"),
+            onTap: () async {
+              Navigator.pop(context);
+              await authProvider.signOut();
             },
           ),
           const SizedBox(height: 16),

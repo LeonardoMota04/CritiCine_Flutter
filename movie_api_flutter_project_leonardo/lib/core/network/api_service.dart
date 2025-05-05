@@ -31,22 +31,30 @@ class TmdbApiClient implements ApiClient {
     }
   }
 
+
+  // GET 
+  // BUSCA DETALHES DE UM FILME POR ID 
   @override
   Future<MovieDetails> fetchMovieDetails(int movieId) async {
+    // url
     final url = Uri.parse(
       "${APIConstants.baseUrl}${APIConstants.movieDetailsEndpoint}/$movieId?api_key=$apiKey&language=pt-BR",
     );
 
+    // response
     final response = await client.get(url);
 
     if (response.statusCode == 200) {
+      // sucesso
       final data = jsonDecode(response.body);
       return MovieDetails.fromJson(data);
     } else {
+      // lida com erro de requisição
       throw _handleError(response.statusCode);
     }
   }
 
+  // LIDA COM ERROS DE REQUISIÇÃO
   ApiError _handleError(int statusCode) {
     switch (statusCode) {
       case 401:
