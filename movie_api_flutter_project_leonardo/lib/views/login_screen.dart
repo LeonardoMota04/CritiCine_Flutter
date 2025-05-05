@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  // ENVIO DE DADOS DE LOGIN /// REGISTRO
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  // LIDA COM LOGIN GOOGLE
   Future<void> _handleGoogleSignIn() async {
     setState(() {
       _isGoogleLoading = true;
@@ -92,8 +94,29 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const SizedBox(height: 32),
+                const Center(
+                  child: Text(
+                    'CritiCine',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Center(
+                  child: Text(
+                    'Veja o que estão falando dos filmes em cartaz!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                // Campos de formulário
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -127,6 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
+
+                // Mensagem de erro
                 if (authProvider.error != null)
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -139,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(color: Colors.red.shade900),
                     ),
                   ),
+
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
@@ -148,9 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
+                            child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : Text(_isLogin ? 'Entrar' : 'Registrar'),
                   ),
@@ -166,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       : 'Já tem uma conta? Faça login'),
                 ),
                 const SizedBox(height: 16),
-                const Text('Ou'),
+                const Divider(),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
@@ -176,9 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
+                            child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : Image.network(
                             'https://www.google.com/favicon.ico',
