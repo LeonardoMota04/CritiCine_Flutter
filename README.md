@@ -1,14 +1,20 @@
-# Movie API Flutter Project
+# 🎬 CritiCine - Crítica de filmes em cartaz
 
-Este é um projeto em Flutter que demonstra um pequeno fluxo de aplicativo voltado para filmes. Ele utiliza integração com a API pública do TMDb para buscar dados reais e oferece funcionalidades como navegação entre telas, gerenciamento de estado, reatividade, tratamento de erros e persistência de dados na sessão. O usuário pode visualizar filmes populares e adicioná-los à sua lista de "Para assistir".
+CritiCine é um aplicativo autoral desenvolvido em Flutter que permite aos usuários explorarem os filmes que estão em cartaz nos cinemas, visualizarem detalhes, lerem e deixarem comentários em tempo real, além de salvar os filmes que desejam assistir.
 
-![Image](https://github.com/user-attachments/assets/e3a55e7c-5274-4c3c-8396-f43724bec677)
+A proposta é oferecer uma experiência completa para amantes do cinema, com interface fluida, estado reativo e integração com serviços modernos como Firebase e TMDb API.
+
+![Image](https://github.com/user-attachments/assets/b3bfe463-4456-4bdd-8165-21bf6da52699)
 
 ## Tecnologias
 - Flutter + Dart
-- TMDb API
-- Provider - gerenciamento de estado reativo
-- HTTP - consumo de API REST
+- TMDb API 
+- Firebase
+  - Firebase Authentication (email/senha, Google Sing In)
+  - Cloud Firestore (comentários em tempo real)
+- Provider 
+- HTTP
+- Shared Preferences 
 
 ## 📂 Arquitetura
 O projeto segue uma arquitetura modular e escalável, baseada no padrão MVVM (Model-View-ViewModel), com foco na separação de responsabilidades, testabilidade e manutenção facilitada:
