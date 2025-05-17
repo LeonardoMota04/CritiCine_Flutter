@@ -3,17 +3,19 @@ import '../models/movie.dart';
 import '../models/movie_details.dart';
 import '../repository/movie_repository.dart';
 import '../core/enums/request_state.dart';
+import '../services/watchlist_service.dart';
 
 // MOVIE VIEW MODEL 
 // referências ao Repository e aos modelos
 class MovieViewModel extends ChangeNotifier {
   // REPOSITORY
   final MovieRepository movieRepository;
+  final WatchlistService _watchlistService = WatchlistService();
 
   // MODELOS
   List<Movie> movies = []; // filme
   MovieDetails? movieDetails; // detalhes do filme
-  final List<Movie> _watchlist = []; // filmes 'para assistir'
+  List<Movie> _watchlist = []; // filmes 'para assistir'
   List<Movie> get watchlist => _watchlist; // getter
 
   // ESTADO DE CARREGAMENTO
@@ -22,7 +24,16 @@ class MovieViewModel extends ChangeNotifier {
   String errorMessage = "";
 
   // init
-  MovieViewModel(this.movieRepository);
+  MovieViewModel(this.movieRepository) {
+    _initWatchlist();
+  }
+
+  // Inicializa a watchlist
+  Future<void> _initWatchlist() async {
+    await _watchlistService.init();
+    _watchlist = _watchlistService.getAllMovies();
+    notifyListeners();
+  }
 
   // CARREGA TODOS FILMES
   Future<void> loadMovies() async {
@@ -56,12 +67,21 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ADICIONA FILME À LISTA DE FILMES PARA ASSISTIR
-  String addToWatchlist(Movie movie) {
-    if (_watchlist.any((m) => m.id == movie.id)) {
-      return "${movie.title} já foi adicionado à lista!";
+  // VERIFICA SE O FILME ESTÁ NA WATCHLIST
+  bool isInWatchlist(int movieId) {
+    return _watchlistService.isMovieInWatchlist(movieId);
+  }
+
+  // ADICIONA OU REMOVE FILME DA WATCHLIST
+  Future<String> toggleWatchlist(Movie movie) async {
+    if (isInWatchlist(movie.id)) {
+      await _watchlistService.removeMovie(movie.id);
+      _watchlist = _watchlistService.getAllMovies();
+      notifyListeners();
+      return "${movie.title} foi removido da lista!";
     } else {
-      _watchlist.add(movie);
+      await _watchlistService.addMovie(movie);
+      _watchlist = _watchlistService.getAllMovies();
       notifyListeners();
       return "${movie.title} foi adicionado à lista!";
     }

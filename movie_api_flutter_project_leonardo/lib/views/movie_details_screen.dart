@@ -105,8 +105,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.bookmark_add, color: Colors.white),
-          onPressed: () {
+          icon: Icon(
+            viewModel.isInWatchlist(movie.id)
+                ? Icons.bookmark
+                : Icons.bookmark_border,
+            color: Colors.white,
+          ),
+          onPressed: () async {
             // objeto Movie a partir dos detalhes
             final movieToAdd = Movie(
               id: movie.id,
@@ -116,16 +121,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               voteAverage: movie.voteAverage,
             );
             
-            String message = viewModel.addToWatchlist(movieToAdd);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+            String message = await viewModel.toggleWatchlist(movieToAdd);
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           },
         ),
       ],

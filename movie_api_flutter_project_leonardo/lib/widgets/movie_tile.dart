@@ -22,7 +22,7 @@ class MovieTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<MovieViewModel>(context, listen: false); // viewmodel do Provider
+    final viewModel = Provider.of<MovieViewModel>(context); // viewmodel do Provider
 
     if (isGridView) {
       return _buildGridTile(context, viewModel);
@@ -81,8 +81,12 @@ class MovieTile extends StatelessWidget {
                       ),
                       if (showAddButton)
                         IconButton(
-                          onPressed: () => _addToWatchlist(context, viewModel),
-                          icon: const Icon(Icons.add_circle_outline),
+                          onPressed: () => _toggleWatchlist(context, viewModel),
+                          icon: Icon(
+                            viewModel.isInWatchlist(movie.id)
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
+                          ),
                           iconSize: 20,
                         ),
                     ],
@@ -125,8 +129,12 @@ class MovieTile extends StatelessWidget {
         ),
         trailing: showAddButton
             ? IconButton(
-                onPressed: () => _addToWatchlist(context, viewModel),
-                icon: const Icon(Icons.add_circle_outline),
+                onPressed: () => _toggleWatchlist(context, viewModel),
+                icon: Icon(
+                  viewModel.isInWatchlist(movie.id)
+                      ? Icons.bookmark
+                      : Icons.bookmark_border,
+                ),
               )
             : null,
         onTap: () => _navigateToDetails(context),
@@ -134,6 +142,7 @@ class MovieTile extends StatelessWidget {
     );
   }
 
+  // FUNÇÕES 
   void _navigateToDetails(BuildContext context) {
     Navigator.pushNamed(
       context,
@@ -142,16 +151,18 @@ class MovieTile extends StatelessWidget {
     );
   }
 
-  void _addToWatchlist(BuildContext context, MovieViewModel viewModel) {
-    String message = viewModel.addToWatchlist(movie);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+  void _toggleWatchlist(BuildContext context, MovieViewModel viewModel) async {
+    String message = await viewModel.toggleWatchlist(movie);
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
