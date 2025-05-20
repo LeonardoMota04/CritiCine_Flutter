@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_api_flutter_project_leonardo/widgets/comments_section.dart';
+import 'package:movie_api_flutter_project_leonardo/presentation/widgets/comments_section.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
 import 'package:movie_api_flutter_project_leonardo/core/enums/request_state.dart';
-import 'package:movie_api_flutter_project_leonardo/viewmodels/movie_viewmodel.dart';
-import 'package:movie_api_flutter_project_leonardo/models/movie.dart';
+import 'package:movie_api_flutter_project_leonardo/presentation/viewmodels/movie_viewmodel.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/movie.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;

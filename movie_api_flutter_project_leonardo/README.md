@@ -1,28 +1,50 @@
-# Movie API Flutter Project - Leonardo Pereira Mota
+# 🎬 CritiCine - Crítica de filmes em cartaz
 
-Este é um projeto simples em Flutter que demonstra um pequeno fluxo dentro de um aplicativo, utilizando chamadas de API para exibir informações sobre filmes e adição à lista de 'Para assistir'.
+CritiCine é um aplicativo autoral desenvolvido em Flutter que permite aos usuários explorarem os filmes que estão em cartaz nos cinemas, visualizarem detalhes, lerem e deixarem comentários em tempo real, além de salvar os filmes que desejam assistir.
+
+A proposta é oferecer uma experiência completa para amantes do cinema, com interface fluida, estado reativo e integração com serviços modernos como Firebase e TMDb API.
+
+![Image](https://github.com/user-attachments/assets/b3bfe463-4456-4bdd-8165-21bf6da52699)
 
 ## Tecnologias
-- Flutter
-- Dart
-- TMDb API
-- HTTP para requisições de API
-- Provider para reatividade do fluxo do App
+- Flutter + Dart
+- TMDb API 
+- Firebase
+  - Firebase Authentication (email/senha, Google Sing In)
+  - Cloud Firestore (comentários em tempo real)
+- Provider 
+- HTTP
+- Shared Preferences 
 
 ## 📂 Arquitetura
-O projeto segue uma estrutura organizada para melhor separação de lógica e responsabilidades:
-- **Core** → contém arquivos essenciais de monitoramento de estado de carregamento e chamada de API.
-- **Models** → representam os dados do aplicativo.
-- **Repository** → gerencia as chamadas de API e fornece os dados para a ViewModel.
-- **Routes** → gerencia a navegação dentro do app.
-- **ViewModel** → gerencia a lógica de estado das telas e controle dos modelos do App.
-- **Views** → contém as telas do aplicativo finais apresentadas ao usuário.
-- **Widgets** → componentes reutilizáveis da interface usadas nas Views.
+O projeto segue uma arquitetura modular e escalável, baseada no padrão MVVM (Model-View-ViewModel) com integrações performáticas do Clean Architecture, com foco na separação de responsabilidades, testabilidade e manutenção facilitada:
+```
+lib/
+├── core/
+│   ├── constants/     # Constantes e temas
+│   ├── enums/        # Enum de estado de carregamento
+├── data/
+│   └── repositories/ # Implementações dos repositórios (chamadas externas)
+├── domain/
+│   ├── models/     # Modelos do domínio
+│   └── repository/ # Interfaces dos repositórios
+└── presentation/
+    ├── views/        # Telas do aplicativo
+    ├── viewmodels/   # ViewModels
+    ├── routes/       # Rotas de navegação
+    └── widgets/      # Widgets reutilizáveis
+```
 
-## 🔧 Configuração e Execução
+## Reatividade e Estado
+O app utiliza Provider para gerenciamento de estado, com ChangeNotifier. Isso permite:
+- Atualização automática das views ao adicionar um filme à lista.
+- Controle dinâmico do estado de carregamento, com exibição de loaders.
+- Reatividade entre diferentes partes do app (como Views e Widgets reutilizáveis).
+
+## 🔧 Executar
 1. Clone este repositório:
    ```sh
-   git clone https://github.com/seu-usuario/movie_api_flutter_project.git
+   git clone https://github.com/LeonardoMota04/Movie_API_Flutter_Project
    ```
 2. Acesse o diretório do projeto:
    ```sh

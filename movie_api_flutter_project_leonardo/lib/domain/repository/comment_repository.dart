@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:movie_api_flutter_project_leonardo/models/comment.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/comment.dart';
 
 class CommentRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

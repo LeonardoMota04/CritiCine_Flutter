@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/movie.dart';
-import '../models/movie_details.dart';
-import '../repository/movie_repository.dart';
-import '../core/enums/request_state.dart';
-import '../services/watchlist_service.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/repository/movie_repository.dart';
+import '../../domain/models/movie.dart';
+import '../../domain/models/movie_details.dart';
+import '../../core/enums/request_state.dart';
+import '../../data/repositories/watchlist_service.dart';
 
 // MOVIE VIEW MODEL 
 // referências ao Repository e aos modelos
@@ -41,7 +41,7 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      movies = await movieRepository.getMovies();
+      movies = await movieRepository.fetchMovies();
       state = RequestState.success;
     } catch (e) {
       errorMessage = "Erro ao carregar filmes";
@@ -57,7 +57,7 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      movieDetails = await movieRepository.getMovieDetails(movieId);
+      movieDetails = await movieRepository.fetchMovieDetails(movieId);
       detailsState = RequestState.success;
     } catch (e) {
       errorMessage = "Erro ao carregar detalhes do filme";

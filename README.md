@@ -17,14 +17,23 @@ A proposta é oferecer uma experiência completa para amantes do cinema, com int
 - Shared Preferences 
 
 ## 📂 Arquitetura
-O projeto segue uma arquitetura modular e escalável, baseada no padrão MVVM (Model-View-ViewModel), com foco na separação de responsabilidades, testabilidade e manutenção facilitada:
-- **Core** → contém arquivos essenciais de monitoramento de estado de carregamento, estado de erros de requisição e chamada de API.
-- **Models** → representam os dados da API em objetos, integráveis com JSON e mantêm o APP desacoplado da API.
-- **Repository** → responsável por intermediar o consumo da API com a ViewModel. Aqui é centralizada toda a lógica de dados externos, como busca de filmes populares ou detalhes de um filme por ID.
-- **Routes** → gerencia a navegação dentro do app.
-- **ViewModel** → gerencia a lógica de estado das telas. Utiliza o ChangeNotifier para emitir mudanças reativas que atualizam as views automaticamente.
-- **Views** → contém as telas do aplicativo finais apresentadas ao usuário. Responsáveis por consumir a lógica da ViewModel e renderizar o layout.
-- **Widgets** → componentes reutilizáveis da interface usadas nas Views.
+O projeto segue uma arquitetura modular e escalável, baseada no padrão MVVM (Model-View-ViewModel) com integrações performáticas do Clean Architecture, com foco na separação de responsabilidades, testabilidade e manutenção facilitada:
+```
+lib/
+├── core/
+│   ├── constants/     # Constantes e temas
+│   ├── enums/        # Enum de estado de carregamento
+├── data/
+│   └── repositories/ # Implementações dos repositórios (chamadas externas)
+├── domain/
+│   ├── models/     # Modelos do domínio
+│   └── repository/ # Interfaces dos repositórios
+└── presentation/
+    ├── views/        # Telas do aplicativo
+    ├── viewmodels/   # ViewModels
+    ├── routes/       # Rotas de navegação
+    └── widgets/      # Widgets reutilizáveis
+```
 
 ## Reatividade e Estado
 O app utiliza Provider para gerenciamento de estado, com ChangeNotifier. Isso permite:

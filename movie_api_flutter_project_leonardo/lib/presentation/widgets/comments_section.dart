@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:movie_api_flutter_project_leonardo/models/comment.dart';
-import 'package:movie_api_flutter_project_leonardo/repository/comment_repository.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/comment.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/repository/comment_repository.dart';
 
 class CommentsSection extends StatefulWidget {
   final int movieId;

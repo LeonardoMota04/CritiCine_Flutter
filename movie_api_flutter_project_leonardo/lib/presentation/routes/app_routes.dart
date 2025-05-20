@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../views/home_screen.dart';
 import '../views/movie_details_screen.dart';
 import '../views/login_screen.dart';
-import '../providers/auth_provider.dart';
+import '../viewmodels/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 // ROUTER do App
@@ -12,7 +12,7 @@ class AppRoutes {
   static const String login = '/login'; // tela de login
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    final authProvider = Provider.of<AuthProvider>(navigatorKey.currentContext!, listen: false);
+    final authProvider = Provider.of<AuthViewModel>(navigatorKey.currentContext!, listen: false);
     
     // Se não estiver autenticado e não estiver na tela de login, redireciona para login
     if (!authProvider.isAuthenticated && settings.name != login) {

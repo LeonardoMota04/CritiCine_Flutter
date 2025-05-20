@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import '../services/auth_service.dart';
+import '../../data/repositories/auth_service.dart';
 import '../routes/app_routes.dart';
 
-class AuthProvider with ChangeNotifier {
+class AuthViewModel with ChangeNotifier {
   final AuthService _authService = AuthService();
   User? _user;
   bool _isLoading = false;
   String? _error;
 
-  AuthProvider() {
+  AuthViewModel() {
     _init();
   }
 
@@ -18,7 +18,7 @@ class AuthProvider with ChangeNotifier {
       _user = user;
       notifyListeners();
       
-      // Se o usuário estiver autenticado, navega para a tela inicial
+      // se o usuário estiver autenticado, navega para a tela inicial
       if (user != null) {
         navigatorKey.currentState?.pushReplacementNamed(AppRoutes.home);
       }
@@ -37,7 +37,7 @@ class AuthProvider with ChangeNotifier {
 
     try {
       await _authService.signInWithEmailAndPassword(email, password);
-      // A navegação será feita pelo listener no _init
+      // a navegação será feita pelo listener no _init
     } catch (e) {
       _error = e.toString();
     } finally {
@@ -53,7 +53,7 @@ class AuthProvider with ChangeNotifier {
 
     try {
       await _authService.registerWithEmailAndPassword(email, password);
-      // A navegação será feita pelo listener no _init
+      // navegação será feita pelo listener no _init
     } catch (e) {
       _error = e.toString();
     } finally {
@@ -69,7 +69,7 @@ class AuthProvider with ChangeNotifier {
 
     try {
       await _authService.signInWithGoogle();
-      // A navegação será feita pelo listener no _init
+      // navegação será feita pelo listener no _init
     } catch (e) {
       _error = e.toString();
     } finally {

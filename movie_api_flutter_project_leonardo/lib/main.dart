@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:movie_api_flutter_project_leonardo/core/network/api_service.dart';
-import 'package:movie_api_flutter_project_leonardo/repository/movie_repository.dart';
+import 'package:movie_api_flutter_project_leonardo/data/repositories/movie_service.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:movie_api_flutter_project_leonardo/services/preferences_manager.dart';
+import 'package:movie_api_flutter_project_leonardo/data/repositories/preferences_manager.dart';
 
-import 'viewmodels/movie_viewmodel.dart';
-import 'viewmodels/theme_viewmodel.dart';
-import 'routes/app_routes.dart';
-import 'providers/auth_provider.dart';
+import 'presentation/viewmodels/movie_viewmodel.dart';
+import 'presentation/viewmodels/theme_viewmodel.dart';
+import 'presentation/routes/app_routes.dart';
+import 'presentation/viewmodels/auth_viewmodel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +23,14 @@ Future<void> main() async {
   await PreferencesManager.init();
 
   // INICIALIZANDO E INJETANDO DEPENDÊNCIAS
-  final tmbdClient = TmdbApiClient();
-  final movieRepository = MovieRepository(tmbdClient);
+  final apiClient = MovieRepositoryImpl();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MovieViewModel(movieRepository)),
+        ChangeNotifierProvider(create: (_) => MovieViewModel(apiClient)),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ],
       child: const MyApp(),
     ),
@@ -44,7 +42,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ThemeViewModel, AuthProvider>(
+    return Consumer2<ThemeViewModel, AuthViewModel>(
       builder: (context, themeViewModel, authProvider, child) {
         const Color customPurple = Color(0xFF6A1B9A);
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
+import '../viewmodels/auth_viewmodel.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // ENVIO DE DADOS DE LOGIN /// REGISTRO
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final authProvider = Provider.of<AuthViewModel>(context, listen: false);
       try {
         if (_isLogin) {
           await authProvider.signInWithEmailAndPassword(
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final authProvider = Provider.of<AuthViewModel>(context, listen: false);
       await authProvider.signInWithGoogle();
     } catch (e) {
       if (mounted) {
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(

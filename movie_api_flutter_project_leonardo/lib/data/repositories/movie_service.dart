@@ -3,15 +3,17 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_error.dart';
-import 'package:movie_api_flutter_project_leonardo/core/network/api_client.dart';
-import 'package:movie_api_flutter_project_leonardo/models/movie.dart';
-import 'package:movie_api_flutter_project_leonardo/models/movie_details.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/repository/movie_repository.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/movie.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/movie_details.dart';
 
-class TmdbApiClient implements ApiClient {
+
+/// TmbdApiClient
+class MovieRepositoryImpl implements MovieRepository {
   final http.Client client;
   final String apiKey = dotenv.env['API_KEY'] ?? '';
 
-  TmdbApiClient({http.Client? client}) : client = client ?? http.Client();
+  MovieRepositoryImpl({http.Client? client}) : client = client ?? http.Client();
 
   @override
   Future<List<Movie>> fetchMovies() async {

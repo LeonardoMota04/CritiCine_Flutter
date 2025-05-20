@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_api_flutter_project_leonardo/core/constants/api_contants.dart';
-import 'package:movie_api_flutter_project_leonardo/routes/app_routes.dart';
-import 'package:movie_api_flutter_project_leonardo/viewmodels/movie_viewmodel.dart';
+import 'package:movie_api_flutter_project_leonardo/presentation/routes/app_routes.dart';
+import 'package:movie_api_flutter_project_leonardo/presentation/viewmodels/movie_viewmodel.dart';
 import 'package:provider/provider.dart';
-import '../models/movie.dart';
+import '../../domain/models/movie.dart';
 
 // COMPONENTE REUTILIZÁVEL
 // item da lista representando cada filme

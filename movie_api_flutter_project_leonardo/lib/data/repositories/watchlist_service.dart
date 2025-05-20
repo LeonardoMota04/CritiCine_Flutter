@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:movie_api_flutter_project_leonardo/models/movie.dart';
+import 'package:movie_api_flutter_project_leonardo/domain/models/movie.dart';
 
 class WatchlistService {
   static const String _boxName = 'watchlist';
