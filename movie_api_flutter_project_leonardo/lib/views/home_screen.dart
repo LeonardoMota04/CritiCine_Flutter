@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/movie_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
@@ -171,6 +172,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
             setState(() {
               _isGridView = !_isGridView;
             });
+            HapticFeedback.lightImpact();
           },
         ),
       ],
