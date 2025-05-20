@@ -4,7 +4,7 @@ CritiCine é um aplicativo autoral desenvolvido em Flutter que permite aos usuá
 
 A proposta é oferecer uma experiência completa para amantes do cinema, com interface fluida, estado reativo e integração com serviços modernos como Firebase e TMDb API.
 
-![Image](https://github.com/user-attachments/assets/b3bfe463-4456-4bdd-8165-21bf6da52699)
+![Image](https://github.com/user-attachments/assets/f696d348-51e8-4275-9237-aa59d6d67f57)
 
 ## Tecnologias
 - Flutter + Dart
